@@ -1,0 +1,9 @@
+[libraries]
+
+cont.files = [
+    'cont.vhdl',
+]
+
+k20.files = [
+    'k20.vhdl',
+]
