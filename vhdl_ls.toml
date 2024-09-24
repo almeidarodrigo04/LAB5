@@ -7,3 +7,7 @@ cont.files = [
 k20.files = [
     'k20.vhdl',
 ]
+
+part4.files = [
+    'part4.vhdl',
+]
