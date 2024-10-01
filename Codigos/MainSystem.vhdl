@@ -112,11 +112,12 @@ begin
         );
 
     process(clk, reset)
-        type state_type is (IDLE, COUNT_05, COUNT_15, COUNT_LOW, SHIFT); --defini√ß√£o dos estados, instru√ß√£o de alto n√≠vel para abstra√ß√£o, basicamente colocando nome nos estados ao inv√©s de simplesmente chamar de 00, 01, 10, 11...
-        variable state: state_type := IDLE; --criando a vari√°vel estado e atribu√≠ndo valor inicial para IDLE
-        variable bit_counter: integer range 0 to 4 := 0;--criando a vari¬¥√°vel para contar os bits que o shift register leu
+        type state_type is (IDLE, COUNT_05, COUNT_15, COUNT_LOW, SHIFT); --definiÁ„o dos estados, instruÁ„o de alto n√≠vel para abstraÁ„o, basicamente colocando nome nos estados ao invÈs de simplesmente chamar de 00, 01, 10, 11...
+        variable state: state_type := IDLE; --criando a vari·vel estado e atribui≠ndo valor inicial para IDLE
+        variable bit_counter: integer range 0 to 4 := 0;--criando a vari·vel para contar os bits que o shift register leu
     begin
-		--reset assincrono. Nesse estado a vari√°vel start √© setado para 1, estado para IDLE, apagar LED, resetar contadores, resetar contador de bits e desabilitar contadores
+		--reset assincrono. Nesse estado a vari·vel start È setado para 1, estado para IDLE, 
+        --apagar LED, resetar contadores, resetar contador de bits e desabilitar contadores
         if reset = '0' then
 			start <= '0';
             state := IDLE;
@@ -130,7 +131,7 @@ begin
             reset_counter15 <= '1';
             reset_counter_low <= '1';
 			reset_shifter <= '1';
-		    -- durante as transi√ß√µes de clock os estados podem ser transicionados
+		    -- durante as gransiÁıes de clock os estados podem ser transicionados
 		elsif enable='0' then
 			start <= '1';
 			state := IDLE;
@@ -166,7 +167,7 @@ begin
                         state := COUNT_LOW;
                     end if;
                 when COUNT_15 =>
-                    --Mesma coisa do COUNT_05 mas para o COUNT_15, mesma l√≥gica, sinais e contadores diferentes.
+                    --Mesma coisa do COUNT_05 mas para o COUNT_15, mesma lÛgica, sinais e contadores diferentes.
 					signal_out <= '1';
                     enable_counter15 <= '1';
                     reset_counter15 <= '0';
@@ -177,8 +178,8 @@ begin
 						state := COUNT_LOW;
                     end if;
                 when COUNT_LOW =>
-                    --Quase a mesma coisa do COUNT_05 mas para o COUNT_LOW, mesma l√≥gica, sinais e contadores diferentes.
-					--Diferen√ßa √© que o LED ficar√° apagado e o pr√≥ximo estado √© o shift
+                    --Quase a mesma coisa do COUNT_05 mas para o COUNT_LOW, mesma lÛgica, sinais e contadores diferentes.
+					--DiferenÁa È que o LED ficar· apagado e o prÛximo estado È o shift
 					--Habilitar o shifter e ler o primeiro digito dele, assim como no current_bit
 					signal_out <= '0';
 					enable_counter_low <= '1';
@@ -196,8 +197,9 @@ begin
 					--desabilitar o shifter
 					--Nesse estado o bit_counter deve ser atualizdo(bit_counter := bit_counter + 1;)
 					--caso o bit_counter for igual character_size, todos os bits foram lidos
-					--voltar para o estado IDLE. Dois sinais/vari√°veis devem ser setados para 0
-					--caso contr√°rio a mudan√ßa de estado depender√° do bit atual(current_bit) se for zero vai para o estado COUNT_05, se n√£o COUNT_15
+					--voltar para o estado IDLE. Dois sinais/vari·veis devem ser setados para 0
+					--caso contr·rio a mudanÁa de estado depender· do bit atual(current_bit) 
+                    --se for zero vai para o estado COUNT_05, se n√£o COUNT_15
 					enable_counter05 <= '0';
 					enable_counter15 <= '0';
                     enable_counter_low <= '0';
